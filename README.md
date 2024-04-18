@@ -1,4 +1,4 @@
-
+```
 mv server.properties server-0.properties
 
 cp server -0.properties server-1.properties
@@ -52,6 +52,8 @@ openssl x509 -req -CA ca-cert -CAkey ca-key -in ca-request-zookeeper-client -out
 keytool -keystore kafka.zookeeper-client.keystore.jks -alias ca-cert -import -file ca-cert
 
 keytool -keystore kafka.zookeeper-client.keystore.jks -alias zookeeper-client -import -file ca-signed-zookeeper-client
+
+```
 
 
 
