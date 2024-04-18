@@ -34,5 +34,24 @@ kafka-server-stop.sh
 zookeeper-server-stop.sh
 
 
+openssl req -new -x509 -keyout ca-key -out ca-cert -days 3650
+
+
+keytool -keystore kafka.zookeeper-client.truststore.jks -alias ca-cert -import -file ca-cert
+
+
+keytool -keystore kafka.zookeeper-client.keystore.jks -alias zookeeper-client -validity 3650 -genkey -keyalg RSA -ext SAN=dns:localhost
+
+
+keytool -keystore kafka.zookeeper-client.keystore.jks -alias zookeeper-client -certreq -file ca-request-zookeeper-client
+
+
+openssl x509 -req -CA ca-cert -CAkey ca-key -in ca-request-zookeeper-client -out ca-signed-zookeeper-client -days 3650 -CAcreateserial
+
+
+keytool -keystore kafka.zookeeper-client.keystore.jks -alias ca-cert -import -file ca-cert
+
+keytool -keystore kafka.zookeeper-client.keystore.jks -alias zookeeper-client -import -file ca-signed-zookeeper-client
+
 
 
