@@ -1,4 +1,3 @@
-mv server.properties server-0.properties
 
 mv server.properties server-0.properties
 
@@ -27,6 +26,13 @@ kafka-console-producer.sh --broker-list localhost:9092,localhost:9093 --topic fi
 
 
 kafka-console-consumer.sh --bootstrap-server localhost:9092,localhost:9093 --topic first-topic --from-beginning
+
+
+kafka-server-stop.sh
+
+
+zookeeper-server-stop.sh
+
 
 
 
