@@ -11,21 +11,25 @@ cp server -0.properties server-2.properties
  
  zookeeper-server-start.sh -daemon zookeeper.properties
 
-kafka-server-start.sh -daemon server-0.properties
 
- kafka-server-start.sh -daemon server-1.properties
-
-
-kafka-server-start.sh -daemon server-2.properties
+kafka-server-start.sh -daemon server-1.properties
+ kafka-server-start.sh -daemon server-2.properties
 
 
-kafka-topics.sh --create --bootstrap-server localhost:9092 --topic first-topic --partitions 2 --replication-factor 3
+ kafka-server-start.sh -daemon server-3.properties
+ 
+zookeeper-shell.sh localhost:2181
+
+ls /brokers/ids
+
+
+kafka-topics.sh --create --bootstrap-server localhost:9092 --topic first --partitions 1 --replication-factor 1
 
 
 kafka-console-producer.sh --broker-list localhost:9092,localhost:9093 --topic first-topic
 
 
-kafka-console-consumer.sh --bootstrap-server localhost:9092,localhost:9093 --topic first-topic --from-beginning
+kafka-console-consumer.sh --bootstrap-server localhost:9093 --topic first-topic --from-beginning
 
 
 kafka-server-stop.sh
